@@ -3,7 +3,8 @@
 <launch>
 	
 	<node name="ft_sensor" pkg="robotiq_force_torque_sensor" type="rq_sensor" respawn="true" output="screen">
-	<rosparam param="serial_id">ftdi_DAWYTPI9</rosparam>
+	<!-- <rosparam param="serial_id">ftdi_DAWYTPI9</rosparam> -->
+	<rosparam param="serial_id">ttyUSB0</rosparam>
 	</node>
 
 </launch>
