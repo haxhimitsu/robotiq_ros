@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
 
 <launch>
-	
-	<node name="ft_sensor" pkg="robotiq_force_torque_sensor" type="rq_sensor" respawn="true" output="screen">
+
+	<node name="ft_300s" pkg="robotiq_force_torque_sensor" type="rq_sensor" respawn="true" output="screen">
 	<!-- <rosparam param="serial_id">ftdi_DAWYTPI9</rosparam> -->
 	<rosparam param="serial_id">ttyUSB0</rosparam>
+	<rosparam param="wrench_frame">"wrist_3_link"</rosparam>
+	<rosparam param="ft_sensor_topic_n">"wrench_ft300s"</rosparam>
+
 	</node>
 
 </launch>

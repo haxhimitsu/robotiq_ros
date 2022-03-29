@@ -176,14 +176,26 @@ int main(int argc, char **argv)
 	{
 		wait_for_other_connection(ftdi_id);
 	}
-	
+
+
+	std::string ft_sensor_topic_n;
+	ros::param::get("~ft_sensor_topic_n", ft_sensor_topic_n);
+
+	// wrenchMsg.header.frame_id = wrench_frame;
+
 	ros::Publisher sensor_pub = n.advertise<robotiq_force_torque_sensor::ft_sensor>("robotiq_force_torque_sensor", 512);
-	ros::Publisher wrench_pub = n.advertise<geometry_msgs::WrenchStamped>("robotiq_force_torque_wrench", 512);
+	ros::Publisher wrench_pub = n.advertise<geometry_msgs::WrenchStamped>(ft_sensor_topic_n, 512);
 	ros::ServiceServer service = n.advertiseService("robotiq_force_torque_sensor_acc", receiverCallback);
 
-	//std_msgs::String msg;
 	geometry_msgs::WrenchStamped wrenchMsg;
-	ros::param::param<std::string>("~frame_id", wrenchMsg.header.frame_id, "robotiq_force_torque_frame_id");
+	// ros::param::param<std::string>("~frame_id", wrenchMsg.header.frame_id, "robotiq_force_torque_frame_id");
+
+	std::string wrench_frame;
+	ros::param::get("~wrench_frame", wrench_frame);
+
+	wrenchMsg.header.frame_id = wrench_frame;
+
+
 
 	ROS_INFO("Starting Sensor");
 	while(ros::ok())
